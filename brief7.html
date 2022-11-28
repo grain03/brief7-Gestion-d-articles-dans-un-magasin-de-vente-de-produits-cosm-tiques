@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+        <form onsubmit="return false">
+            <label for="name">Nom</label>
+            <input type="text" id="name">
+
+            <label for="name">Marque</label>
+            <input type="text" id="mark">
+
+            <label for="name">Prix</label>
+            <input type="number" step="0.01" id="price" placeholder="$">
+
+            <label for="name">Date de production</label>
+            <input type="date" id="date">
+
+            <label for="type">Type</label>
+            <select id="type">
+                <option value="1">Choisissez un type</option>
+                <option value="2">hygiène et toilette</option>
+                <option value="3">soins esthétiques</option>
+                <option value="4">produits solaires</option>
+                <option value="5">beauté des mains et des pieds</option>
+                <option value="6">produits de maquillage</option>
+                <option value="7">entretien capillaires</option>
+                <option value="8">parfums</option>
+
+            </select>
+
+            <label for="name">Promotion</label>
+            <div id="promo">
+            <input type="radio" name="promo" id="promod" checked>
+            <label for="promoy">YES</label>
+            <input type="radio" name="promo" id="promoy">
+            <label for="promon">NO</label>
+            <input type="radio" name="promo" id="promon">
+            </div>
+
+            <div id="buttons"> 
+            <button id="btn" onclick="check()">Ajouter</button>
+            </div>
+
+
+
+        </form>
+
+        <table id="tables">
+            <tr>
+              <th>Nom</th>
+              <th>Marque</th>
+              <th>Prix</th>
+              <th>Date de Production</th>
+              <th>Type</th>
+              <th>Promotion</th>
+
+            </tr>
+          </table>
+    </section>
+
+
+
+
+
+
+
+<script>
+// "Ajouter" Button has a function called check().
+    function check(){
+    let name = document.getElementById('name').value;
+    let mark = document.getElementById('mark').value;
+    let price = document.getElementById('price').value;
+    let date = document.getElementById('date').value;
+    let type = document.getElementById('type').value;
+    let promodefault = document.getElementById('promod');
+    let promoyes = document.getElementById('promoy');
+    let promono = document.getElementById('promon');
+    let type1;
+    let promochecked;
+
+// New Buttons created after clicking on "Ajouter" Button,
+// Button Name of Delete called "Supprimer" and Button Name of Modification called "Modifier"
+    let newtdbtnmod = document.createElement('button');
+    let newtdbtnsup = document.createElement('button');
+
+    let ModButtonText = document.createTextNode('Modifier')
+    let SupButtonText = document.createTextNode('Supprimer')
+
+    newtdbtnmod.appendChild(ModButtonText)
+    newtdbtnsup.appendChild(SupButtonText)
+
+// Adding Attributes And Functions to our buttons
+    newtdbtnsup.setAttribute("id", "supprimer")
+    newtdbtnsup.addEventListener("click", supprimer);
+
+
+    newtdbtnmod.setAttribute("id", "modifier")
+    newtdbtnmod.addEventListener("click", modifier);
+
+// After clicking on "Ajouter" Button our function create new tr and new tds 
+    let table = document.getElementById('tables');
+    let newtr = document.createElement('tr');
+    let newtd1 = document.createElement('td');
+    let newtd2 = document.createElement('td');
+    let newtd3 = document.createElement('td');
+    let newtd4 = document.createElement('td');
+    let newtd5 = document.createElement('td');
+    let newtd6 = document.createElement('td');
+    let newtd7 = document.createElement('td');
+    let newtd8 = document.createElement('td');
+
+// converting radion input value to text
+    if(promoyes.checked){
+        promochecked = "Yes";
+    }else if(promono.checked){
+        promochecked = "No";
+    }
+
+// converting select values to texts
+    if(type== 2){
+        type1 = "hygiène et toilette"
+    }else if(type == 3){
+        type1 = "soins esthétiques"
+    }else if(type == 4){
+        type1 = "produits solaires"
+    }else if(type == 5){
+        type1 = "beauté des mains et des pieds"
+    }else if(type == 6){
+        type1 = "produits de maquillage"
+    }else if(type == 7){
+        type1 = "entretien capillaires"
+    }else if(type == 8){
+        type1 = "parfums"
+    }
+
+// create tds texts depending on input values
+    let nametd = document.createTextNode(name);
+    let marktd = document.createTextNode(mark);
+    let pricetd = document.createTextNode(price);
+    let datetd = document.createTextNode(date);
+    let typetd = document.createTextNode(type1);
+    let promotd = document.createTextNode(promochecked);
+ 
+
+// validating the form by checking wrong inputs
+// if there is no wrong input 'else' will run code of creating new tr and tds
+    if(name.length > 30 || name.length == 0){
+        alert("name must be less than 30 letters")
+    }
+    else if(mark.length > 30 || mark.length == 0){
+        alert("Marque must be less than 30 letters")
+    }
+    else if(price <= 0){
+        alert("Price must be more than " + price + "$")
+    }
+    else if(date == ""){
+        alert("Date must be filled")
+    }
+    else if(type == 1){
+        alert("Vous devez choisir un type")
+    }
+    else if(promodefault.checked){
+        alert("Vous devez choisir s'il y a une promotion")
+    }
+    else{
+        table.appendChild(newtr);
+
+        newtr.appendChild(newtd1);
+        newtr.appendChild(newtd2);
+        newtr.appendChild(newtd3);
+        newtr.appendChild(newtd4);
+        newtr.appendChild(newtd5);
+        newtr.appendChild(newtd6);
+        newtr.appendChild(newtd7);
+        newtr.appendChild(newtd8);
+
+        newtd1.appendChild(nametd)
+        newtd2.appendChild(marktd)
+        newtd3.appendChild(pricetd)
+        newtd4.appendChild(datetd)
+        newtd5.appendChild(typetd)
+        newtd6.appendChild(promotd)
+        newtd7.appendChild(newtdbtnmod)
+        newtd8.appendChild(newtdbtnsup)
+     
+        document.getElementById('name').value = ""
+        document.getElementById('mark').value =""
+        document.getElementById('price').value =""
+        document.getElementById('date').value =""
+        document.getElementById('promod').checked = true
+        document.getElementById('type').value = 1
+    }
+
+
+// "supprimer" function will delete chosen created tr
+    function supprimer(){
+    newtr.remove()
+    }
+
+// "modifier" function will modify the chosen created tr
+    function modifier(){  
+    let newtdbtnediter = document.createElement('button');
+    let newtdbtnEditerText = document.createTextNode('Editer')
+    newtdbtnediter.appendChild(newtdbtnEditerText)
+    let theform = document.getElementById('buttons');
+    theform.appendChild(newtdbtnediter)
+    newtdbtnediter.setAttribute("id", "btnediter")
+    newtdbtnediter.addEventListener("click", editer);
+
+// what written in the table will come back to the inputs
+    document.getElementById('name').value = table.rows[newtr.rowIndex].cells[newtd1.cellIndex].innerText
+    document.getElementById('mark').value = table.rows[newtr.rowIndex].cells[newtd2.cellIndex].innerText
+    document.getElementById('price').value = table.rows[newtr.rowIndex].cells[newtd3.cellIndex].innerText
+    document.getElementById('date').value = table.rows[newtr.rowIndex].cells[newtd4.cellIndex].innerText
+
+// select only accepte the value
+    if(table.rows[newtr.rowIndex].cells[newtd5.cellIndex].innerText == "hygiène et toilette"){
+    document.getElementById('type').value = 2
+    }else if(table.rows[newtr.rowIndex].cells[newtd5.cellIndex].innerText == "soins esthétiques"){
+    document.getElementById('type').value = 3
+    }else if(table.rows[newtr.rowIndex].cells[newtd5.cellIndex].innerText == "produits solaires"){
+    document.getElementById('type').value = 4
+    }else if(table.rows[newtr.rowIndex].cells[newtd5.cellIndex].innerText == 
+        "beauté des mains et des pieds"){
+    document.getElementById('type').value = 5
+    }else if(table.rows[newtr.rowIndex].cells[newtd5.cellIndex].innerText == "produits de maquillage"){
+    document.getElementById('type').value = 6
+    }else if(table.rows[newtr.rowIndex].cells[newtd5.cellIndex].innerText == "entretien capillaires"){
+    document.getElementById('type').value = 7
+    }else if(table.rows[newtr.rowIndex].cells[newtd5.cellIndex].innerText == "parfums"){
+    document.getElementById('type').value = 8
+    }
+
+// if it is yes or no in the table, the radio input will get checked.
+    if(promochecked == "Yes"){
+    document.getElementById('promoy').checked = true
+    }else if(promochecked == "No"){
+    document.getElementById('promon').checked = true
+    }
+
+// changing the function of button "Modifier" to be its function deleting "Modifier" button.
+    newtdbtnmod.setAttribute("id", "modifier2")
+    newtdbtnmod.addEventListener("click", modifier2);
+    function modifier2(){
+    newtdbtnediter.remove()
+    }
+
+
+// the filled values in the inputs will replace table tds innertexts
+    function editer(){
+    newtdbtnediter.remove()
+    let type = document.getElementById('type').value;
+
+    if(promoyes.checked){
+        promochecked = "Yes";
+    }else if(promono.checked){
+        promochecked = "No";
+    }
+
+    if(type== 2){
+        type1 = "hygiène et toilette"
+    }else if(type == 3){
+        type1 = "soins esthétiques"
+    }else if(type == 4){
+        type1 = "produits solaires"
+    }else if(type == 5){
+        type1 = "beauté des mains et des pieds"
+    }else if(type == 6){
+        type1 = "produits de maquillage"
+    }else if(type == 7){
+        type1 = "entretien capillaires"
+    }else if(type == 8){
+        type1 = "parfums"
+    }
+
+table.rows[newtr.rowIndex].cells[newtd1.cellIndex].innerText = document.getElementById('name').value
+table.rows[newtr.rowIndex].cells[newtd2.cellIndex].innerText  = document.getElementById('mark').value
+table.rows[newtr.rowIndex].cells[newtd3.cellIndex].innerText = document.getElementById('price').value
+table.rows[newtr.rowIndex].cells[newtd4.cellIndex].innerText = document.getElementById('date').value
+table.rows[newtr.rowIndex].cells[newtd5.cellIndex].innerText = type1
+table.rows[newtr.rowIndex].cells[newtd6.cellIndex].innerText = promochecked
+// turning back the values to default
+    document.getElementById('name').value = ""
+    document.getElementById('mark').value =""
+    document.getElementById('price').value =""
+    document.getElementById('date').value =""
+    document.getElementById('promod').checked = true
+    document.getElementById('type').value = 1
+
+}
+}
+}
+</script>
+
+
+
+
+
+    <style>
+    body{
+    padding: 30PX;
+    margin: 0;
+    background-image: url("https://simplonline.co/_next/image?url=https%3A%2F%2Fsimplonline-v3-prod.s3.eu-west-3.amazonaws.com%2Fmedia%2Fimage%2Fwebp%2F91f40016-8d55-459d-8e83-1faa348c4ba7.webp&w=1280&q=75");
+    background-repeat: no-repeat;
+    backdrop-filter: blur(5px);    
+    }
+
+    form{
+    padding: 80px 3px;
+    width: 80%;
+    MARGIN: 0 auto;
+    background-color: rgb(241 185 158);
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 27px;
+    display: grid;
+    }
+    form label{
+    font-size: 17px;
+    padding-top: 18px;
+    padding-bottom: 5px;
+    MARGIN-LEFT: 11%;
+    align-items: left;
+    text-align: left;
+    }
+    form input{
+    padding: 15px 9px 15px 9PX;
+    MARGIN: 0 auto;
+    WIDTH: 77%;
+    border-radius: 10px;
+    background-color: azure;
+    outline: none;
+    border: none;
+    }
+
+    form select{
+    padding: 15px 9px 15px 9PX;
+    MARGIN: 0 auto;
+    WIDTH: 79%;
+    border-radius: 10px;
+    background-color: azure;
+    outline: none;
+    border: none;
+    }
+    #promod{
+        display: none;
+    }
+
+    form #buttons{
+        text-align: center;
+        align-items: center;
+    }
+    form #btn, #btnediter{
+    padding: 15px 9px 15px 9PX;
+    border-radius: 10px;
+    MARGIN: 0 auto;
+    WIDTH: 79%;
+    margin-top: 18px;
+    background-color: white;
+    color: rgb(217, 146, 114);
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.8s;
+    }
+
+
+    form #btn:hover, #btnediter:hover{
+    background-color: rgb(243, 218, 206);
+    color: #ffffff;
+    }
+
+    table button{
+    padding: 15px 9px 15px 9PX;
+    border-radius: 3px;
+    background-color: rgb(217, 146, 114);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.8s;
+    }
+
+    table button:hover{
+        background-color: rgb(227, 119, 70);
+    }
+
+
+    #promo{
+    display: INLINE;
+    margin-top: 2%;  
+    }
+
+    form #promo label {
+    margin-top: 2%;
+    font-size: smaller;  
+    }
+
+    form #promo input {
+    margin-top: 2%;
+    width: 20PX;
+    }
+
+
+
+
+
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 80%;
+          margin: 0 auto;
+          margin-top:44px;
+          
+
+        }
+        
+        td {
+          border: 1px solid #000000;
+          text-align: left;
+          padding: 8px;
+          background-color: rgb(243, 218, 206);
+
+
+        }
+
+        th {
+          border: 1px solid #b8b8b8;
+          text-align: left;
+          padding: 8px;
+          border: 1px solid #000000;
+          background-color: rgb(241 185 158);
+        }
+        
+        </style>
+</body>
+</html>
