@@ -71,6 +71,9 @@
 
 
 <script>
+
+
+
 // "Ajouter" Button has a function called check().
     function check(){
     let name = document.getElementById('name').value;
@@ -87,6 +90,7 @@
 // New Buttons created after clicking on "Ajouter" Button,
 // Button Name of Delete called "Supprimer" and Button Name of Modification called "Modifier"
     let newtdbtnmod = document.createElement('button');
+
     let newtdbtnsup = document.createElement('button');
 
     let ModButtonText = document.createTextNode('Modifier')
@@ -199,8 +203,13 @@
 
 
 // "supprimer" function will delete chosen created tr
-    function supprimer(){
-    newtr.remove()
+    
+function supprimer(){
+    let alertDelete = confirm("Vous allez le supprimer !!")
+
+    if(alertDelete == true){
+       newtr.remove()
+    }
     }
 
 // "modifier" function will modify the chosen created tr
